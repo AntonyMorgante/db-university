@@ -38,10 +38,11 @@ ORDER BY `students`.`surname` ASC,`students`.`name` ASC
 
 5. Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
 
-SELECT * 
-FROM `courses`
-INNER JOIN `course_teacher` ON `courses`.`id`=`course_teacher`.`course_id`
-INNER JOIN `teachers` ON `course_teacher`.`teacher_id`=`teachers`.`id`
+SELECT `degrees`.`*`, `courses`.`*`, `teachers`.`*` 
+FROM `degrees`
+INNER JOIN `courses` ON `courses`.`degree_id` = `degrees`.`id`
+INNER JOIN `course_teacher` ON `courses`.`id` = `course_teacher`.`course_id`
+INNER JOIN `teachers` ON `course_teacher`.`teacher_id` = `teachers`.`id`
 
 
 
@@ -54,6 +55,7 @@ INNER JOIN `courses` ON `course_teacher`.`course_id`=`courses`.`id`
 INNER JOIN `degrees` ON `courses`.`degree_id`=`degrees`.`id`
 INNER JOIN `departments` ON `degrees`.`department_id`=`departments`.`id`
 WHERE `departments`.`name` = "Dipartimento di Matematica"
+GROUP BY `teachers`.`id`
 
 
 
